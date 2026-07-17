@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050711" />
+    <meta
+      name="description"
+      content="NEON STRIKE — 一款由 Horatio 制作的响应式 HTML5 飞机大战小游戏。"
+    />
+    <title>NEON STRIKE · 飞机大战</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="NEON STRIKE 首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" role="img">
+              <path d="M20 3 25 15 36 20 25 25 20 37 15 25 4 20 15 15Z" />
+              <path class="brand-core" d="m20 11 3 7 7 2-7 2-3 7-3-7-7-2 7-2Z" />
+            </svg>
+          </span>
+          <span>
+            <strong>NEON STRIKE</strong>
+            <small>Air Battle / 飞机大战</small>
+          </span>
+        </a>
+
+        <div class="top-actions">
+          <span class="status-dot"><i></i> SYSTEM ONLINE</span>
+          <button id="soundButton" class="icon-button" type="button" aria-label="关闭声音" title="声音">
+            <svg class="sound-on" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+              <path d="M16 8.5c1.2 1 1.2 6 0 7M19 6c2.7 2.4 2.7 9.6 0 12" />
+            </svg>
+            <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+              <path d="m17 9 5 5m0-5-5 5" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="game-layout">
+        <aside class="side-panel mission-panel">
+          <div class="panel-heading">
+            <span>MISSION DATA</span>
+            <b>01</b>
+          </div>
+
+          <div class="stat-block score-block">
+            <small>CURRENT SCORE</small>
+            <strong id="scoreValue">000000</strong>
+          </div>
+
+          <div class="stats-grid">
+            <div>
+              <small>BEST</small>
+              <strong id="bestValue">000000</strong>
+            </div>
+            <div>
+              <small>WAVE</small>
+              <strong id="waveValue">01</strong>
+            </div>
+          </div>
+
+          <div class="meter-group">
+            <div class="meter-label">
+              <span>HULL</span>
+              <b id="healthLabel">100%</b>
+            </div>
+            <div class="meter"><i id="healthBar" class="health-meter"></i></div>
+          </div>
+
+          <div class="meter-group">
+            <div class="meter-label">
+              <span>SHIELD</span>
+              <b id="shieldLabel">0%</b>
+            </div>
+            <div class="meter"><i id="shieldBar" class="shield-meter"></i></div>
+          </div>
+
+          <div class="combo-card">
+            <div>
+              <small>COMBO</small>
+              <strong id="comboValue">×1</strong>
+            </div>
+            <span id="rankValue">ROOKIE</span>
+          </div>
+
+          <p class="panel-note">击落敌机维持连击，分数倍率最高可达 ×8。</p>
+        </aside>
+
+        <section class="game-console" aria-label="飞机大战游戏区域">
+          <div class="console-topline">
+            <span><i></i> COMBAT ZONE</span>
+            <b id="fpsValue">60 FPS</b>
+          </div>
+
+          <div id="canvasFrame" class="canvas-frame">
+            <canvas id="gameCanvas" width="480" height="720" aria-label="NEON STRIKE 游戏画面"></canvas>
+
+            <div id="bossHud" class="boss-hud" hidden>
+              <div><span>WARNING · BOSS</span><b id="bossHealthLabel">100%</b></div>
+              <div class="boss-meter"><i id="bossHealthBar"></i></div>
+            </div>
+
+            <div id="gameScreen" class="game-screen">
+              <div class="screen-content">
+                <div id="screenEyebrow" class="screen-eyebrow">MISSION 01</div>
+                <h1 id="screenTitle"><span>NEON</span> STRIKE</h1>
+                <p id="screenText">驾驶霓虹战机，突破敌军防线。<br />拖动或使用方向键移动，战机会自动射击。</p>
+                <button id="startButton" class="primary-button" type="button">
+                  <span id="startButtonText">开始任务</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+                </button>
+                <div id="screenHint" class="screen-hint">
+                  <span>WASD / 方向键</span>
+                  <i></i>
+                  <span>手机拖动</span>
+                  <i></i>
+                  <span>X 使用炸弹</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="pauseBadge" class="pause-badge" hidden>PAUSED</div>
+            <div id="flashLayer" class="flash-layer" aria-hidden="true"></div>
+          </div>
+
+          <div class="console-controls">
+            <button id="pauseButton" class="control-button" type="button" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
+              <span>暂停</span>
+            </button>
+
+            <div class="power-readout">
+              <span>WEAPON</span>
+              <div id="weaponPips" class="weapon-pips"><i class="active"></i><i></i><i></i><i></i></div>
+            </div>
+
+            <button id="bombButton" class="bomb-button" type="button" disabled>
+              <span class="bomb-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3m6-1-2 2m5 4h-3M6 5l2 2m-5 4h3m6-3a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z" /></svg>
+              </span>
+              <span>
+                <small>EMP BOMB</small>
+                <strong id="bombCount">×2</strong>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <aside class="side-panel intel-panel">
+          <div class="panel-heading">
+            <span>PILOT GUIDE</span>
+            <b>02</b>
+          </div>
+
+          <div class="control-list">
+            <div class="control-row">
+              <span class="key-cluster"><kbd>W</kbd><i><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></i></span>
+              <div><strong>MOVE</strong><small>移动战机</small></div>
+            </div>
+            <div class="control-row">
+              <span class="drag-icon">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5v30M5 20h30M20 5l-4 4m4-4 4 4M20 35l-4-4m4 4 4-4M5 20l4-4m-4 4 4 4m26-4-4-4m4 4-4 4" /></svg>
+              </span>
+              <div><strong>DRAG</strong><small>手机触控</small></div>
+            </div>
+            <div class="control-row">
+              <span class="single-key"><kbd>X</kbd></span>
+              <div><strong>EMP</strong><small>清屏炸弹</small></div>
+            </div>
+            <div class="control-row">
+              <span class="single-key"><kbd>P</kbd></span>
+              <div><strong>PAUSE</strong><small>暂停游戏</small></div>
+            </div>
+          </div>
+
+          <div class="divider"><span>POWER UPS</span></div>
+
+          <div class="power-list">
+            <div><span class="power-icon rapid">R</span><p><strong>RAPID</strong><small>急速射击</small></p></div>
+            <div><span class="power-icon spread">S</span><p><strong>SPREAD</strong><small>散射弹幕</small></p></div>
+            <div><span class="power-icon shield">◇</span><p><strong>SHIELD</strong><small>能量护盾</small></p></div>
+            <div><span class="power-icon repair">+</span><p><strong>REPAIR</strong><small>修复机体</small></p></div>
+          </div>
+
+          <div class="tip-card">
+            <span>PRO TIP</span>
+            <p>Boss 每 5 波出现。保留 EMP，可以在密集弹幕中快速脱险。</p>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <span>BUILT BY HORATIO</span>
+        <span>HTML5 CANVAS · VANILLA JAVASCRIPT</span>
+        <span>VERSION 1.0.0</span>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

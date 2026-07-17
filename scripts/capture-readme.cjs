@@ -11,6 +11,8 @@ const root = path.join(__dirname, "..");
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 app.whenReady().then(async () => {
+  await fs.mkdir(path.join(root, "assets"), { recursive: true });
+
   const window = new BrowserWindow({
     width: 1440,
     height: 1000,
@@ -50,4 +52,3 @@ app.whenReady().then(async () => {
   console.error(error);
   app.exit(1);
 });
-

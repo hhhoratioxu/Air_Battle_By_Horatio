@@ -37,7 +37,8 @@ jobs:
       - name: Install virtual display
         run: |
           sudo apt-get update
-          sudo apt-get install --yes xvfb
+          sudo apt-get install --yes xvfb fonts-noto-cjk
+          fc-cache --force
 
       - name: Capture actual game screens
         run: xvfb-run --auto-servernum ./node_modules/.bin/electron --no-sandbox scripts/capture-readme.cjs

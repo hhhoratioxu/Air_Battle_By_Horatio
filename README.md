@@ -1,5 +1,11 @@
 # NEON STRIKE · Air Battle
 
+## Preview / 游戏预览
+
+| Mission menu / 任务界面 | Combat / 战斗画面 |
+| :---: | :---: |
+| ![NEON STRIKE mission menu](assets/menu.png) | ![NEON STRIKE combat gameplay](assets/gameplay.png) |
+
 ## English
 
 **NEON STRIKE** is a responsive airplane shooter built with HTML5 Canvas and vanilla JavaScript. It runs directly in a browser with no framework, build step, account, or external asset required.

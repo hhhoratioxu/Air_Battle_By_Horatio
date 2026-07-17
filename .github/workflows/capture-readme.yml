@@ -1,0 +1,58 @@
+name: Capture README Screenshots
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/capture-readme.yml"
+      - "scripts/capture-readme.cjs"
+      - "game.js"
+      - "index.html"
+      - "style.css"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    name: Capture game screens
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install virtual display
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes xvfb
+
+      - name: Capture actual game screens
+        run: xvfb-run --auto-servernum ./node_modules/.bin/electron --no-sandbox scripts/capture-readme.cjs
+
+      - name: Verify screenshots
+        run: |
+          test -s assets/menu.png
+          test -s assets/gameplay.png
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-strike-readme-screenshots
+          path: |
+            assets/menu.png
+            assets/gameplay.png
+          if-no-files-found: error
+          retention-days: 7

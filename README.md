@@ -4,6 +4,15 @@
 
 **NEON STRIKE** is a responsive airplane shooter built with HTML5 Canvas and vanilla JavaScript. It runs directly in a browser with no framework, build step, account, or external asset required.
 
+### Windows download
+
+Download the latest Windows x64 build from [GitHub Releases](https://github.com/hhhoratioxu/Air_Battle_By_Horatio/releases/latest):
+
+- `NEON-STRIKE-Setup-1.0.0-x64.exe` — installer with desktop and Start Menu shortcuts
+- `NEON-STRIKE-Portable-1.0.0-x64.exe` — portable edition, no installation required
+
+The Windows build is not code-signed. Microsoft Defender SmartScreen may ask for confirmation the first time it runs.
+
 ### Features
 
 - Responsive gameplay for desktop and mobile browsers
@@ -49,6 +58,15 @@ Then visit `http://localhost:8080`.
 ## 中文
 
 **NEON STRIKE** 是一款使用 HTML5 Canvas 与原生 JavaScript 制作的响应式飞机大战小游戏。不依赖框架、不需要构建，也不需要任何外部素材，下载后即可在浏览器中运行。
+
+### Windows 下载
+
+前往 [GitHub Releases](https://github.com/hhhoratioxu/Air_Battle_By_Horatio/releases/latest) 下载最新的 Windows x64 版本：
+
+- `NEON-STRIKE-Setup-1.0.0-x64.exe` — 安装版，可创建桌面和开始菜单快捷方式
+- `NEON-STRIKE-Portable-1.0.0-x64.exe` — 免安装便携版，双击即可运行
+
+Windows 版本暂未进行代码签名，首次运行时 Microsoft Defender SmartScreen 可能会要求确认。
 
 ### 游戏特色
 

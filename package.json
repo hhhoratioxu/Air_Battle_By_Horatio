@@ -1,0 +1,64 @@
+{
+  "name": "neon-strike-air-battle",
+  "version": "1.0.0",
+  "description": "A responsive neon-style airplane shooter for Windows and the web.",
+  "main": "electron/main.cjs",
+  "author": "Horatio Xu",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis portable --x64"
+  },
+  "devDependencies": {
+    "electron": "43.1.1",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.horatio.neonstrike",
+    "productName": "NEON STRIKE",
+    "copyright": "Copyright © 2026 Horatio Xu",
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "index.html",
+      "style.css",
+      "game.js",
+      "electron/**/*",
+      "build/icon.ico",
+      "LICENSE"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "verifyUpdateCodeSignature": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "artifactName": "NEON-STRIKE-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "NEON STRIKE"
+    },
+    "portable": {
+      "artifactName": "NEON-STRIKE-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}
